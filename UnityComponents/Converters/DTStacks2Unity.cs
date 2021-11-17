@@ -5,6 +5,11 @@ namespace DTStacks.UnityComponents.Converters
 {
     public static class DTStacks2Unity
     {
+        /// <summary>
+        /// Transforms a 3D Point from DTStacks Vector3 to Unity Vector3 framework.
+        /// </summary>
+        /// <param name="a"> The DTStacks.Vector3 point to transform</param>
+        /// <returns>The transformed Point as Vector3</returns>
         public static Vector3 Point2Unity(this DTStacks.DataType.Generic.Geometry.Point a)
         {
             Vector3 b = new Vector3(a.x, a.y, a.z);

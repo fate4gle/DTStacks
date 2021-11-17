@@ -19,5 +19,14 @@ namespace DTStacks.DataType.ROS.Messages.sensor_msgs
             velocity = new float[i];
             effort = new float[i];
         }
+        public JointStateMsg()
+        {
+            header = new Header();
+        }
+        public JointStateMsg(int i)
+        {
+            header = new Header();
+            SetNumberOfJoints(i);
+        }
     }
 }

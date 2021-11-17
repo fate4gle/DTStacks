@@ -2,6 +2,7 @@
 
 namespace DTStacks.DataType.Vehicles.Messages.Aircraft
 {
+    [System.Serializable]
     public class LightStatusMsg : Message
     {
         public int ANTI_COLLISION = 0;

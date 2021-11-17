@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 using DTStacks.Communication.MQTT;
@@ -116,7 +115,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void Update()
         {
             base.Update(); // call ProcessMqttEvents()
-
+            
             if (eventMessages.Count > 0)
             {
                 foreach (string msg in eventMessages)

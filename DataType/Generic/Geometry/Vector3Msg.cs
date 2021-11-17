@@ -8,11 +8,11 @@ namespace DTStacks.DataType.Generic.Geometry
         public float x;
         public float y;
         public float z;
-        public Vector3(float xIn, float yIn, float zIn)
+        public Vector3(float x, float y, float z)
         {
-            x = xIn;
-            y = yIn;
-            z = zIn;
+            this.x = x;
+            this.y = y;
+            this.z = z;
         }
     }
 }

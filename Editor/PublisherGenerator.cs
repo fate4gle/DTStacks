@@ -15,15 +15,11 @@ namespace DTStacks.Editor.Generator
         string publisherNamespace = "DTStacks.UnityComponents.Generic.Publisher.Custom";
         string messageName = "GenericMessage";
         bool includeMsg = true;
-        bool groupEnabled;
-        bool myBool = true;
-        float myFloat = 1.23f;
         
         string generateBtn = "Generate Publisher";
 
 
-        //public variableTypes variableType;
-
+        
         [MenuItem("DTStacks/Create/Publisher")]
         static void Init()
         {
@@ -32,7 +28,7 @@ namespace DTStacks.Editor.Generator
             window.Show();
         }
 
-        public void Create(string publisherName, string publisherNamespace, string messageName)
+        public void Create(string publisherName, string publisherNamespace, string messageName, string messageNamespace)
         {
             string copyPath = "Assets/DTStacks/UnityComponents/Generic/Publisher/Custom/" + publisherName + ".cs";
             Debug.Log("Creating Publisher Classfile: " + copyPath);
@@ -46,8 +42,8 @@ namespace DTStacks.Editor.Generator
                     outfile.WriteLine("using UnityEngine;");
                     outfile.WriteLine("using System.Collections;");
                     outfile.WriteLine(" ");
-                    outfile.WriteLine("using DTStacks.UnityComponents.Communication.MQTT;\n" +
-                        "using DTStacks.DataType.Generic.Custom; \n");
+                    outfile.WriteLine("using DTStacks.UnityComponents.Communication.MQTT;\r\n" +
+                        "using " + messageNamespace +";\r\n");
                     outfile.WriteLine("");
                     outfile.WriteLine("namespace " + publisherNamespace);
                     outfile.WriteLine("{");
@@ -56,29 +52,29 @@ namespace DTStacks.Editor.Generator
                     outfile.WriteLine(" ");
                     outfile.WriteLine("public " + messageName + " Msg;");
 
-                    outfile.WriteLine("public string GetData() \n" +
-                        "{ \n" +
-                        "   return Msg.CreateJSONFromData(); \n" +
-                        "} \n");
+                    outfile.WriteLine("public string GetData() \r\n" +
+                        "{ \r\n" +
+                        "   return Msg.CreateJSONFromData(); \r\n" +
+                        "} \r\n");
 
-                    outfile.WriteLine(" public override void InitPublishing()\n" +
-                        "{\n" +
-                        "base.InitPublishing();\n" +
-                        "PublishMsg(GetData()); \n" +
-                        "}\n"
+                    outfile.WriteLine(" public override void InitPublishing()\r\n" +
+                        "{\r\n" +
+                        "base.InitPublishing();\r\n" +
+                        "PublishMsg(GetData()); \r\n" +
+                        "}\r\n"
                         );
 
 
 
                     outfile.WriteLine(" // Use this for extras during initialization");
-                    outfile.WriteLine(" public override void ExtendedStart () {\n" +
-                        "\n" +
-                        "}\n" +
-                        " \n");
+                    outfile.WriteLine(" public override void ExtendedStart () {\r\n" +
+                        "\r\n" +
+                        "}\r\n" +
+                        " \r\n");
 
                     outfile.WriteLine(" // Extended Update function, will be executed after regular update");
-                    outfile.WriteLine(" public override void ExtendedUpdate () {\n" +
-                        "\n" +
+                    outfile.WriteLine(" public override void ExtendedUpdate () {\r\n" +
+                        "\r\n" +
                         "}");
 
                     outfile.WriteLine("}");
@@ -95,15 +91,7 @@ namespace DTStacks.Editor.Generator
             EditorGUILayout.BeginToggleGroup("Inlcude Message", includeMsg);
             messageName = EditorGUILayout.TextField("Message Name", messageName);
 
-            /*
-            EditorGUILayout.EndToggleGroup();
-
-            groupEnabled = EditorGUILayout.BeginToggleGroup("Include Paramters", groupEnabled);
             
-            //variableType = (variableTypes)EditorGUILayout.EnumPopup("Select Paramter", variableType);
-            EditorGUILayout.EndToggleGroup();
-            */
-
             if (GUILayout.Button(generateBtn))
             {
                 Create();
@@ -123,8 +111,8 @@ namespace DTStacks.Editor.Generator
                         outfile.WriteLine("using UnityEngine;");
                         outfile.WriteLine("using System.Collections;");
                         outfile.WriteLine(" ");
-                        outfile.WriteLine("using DTStacks.UnityComponents.Communication.MQTT;\n" +
-                            "using DTStacks.DataType.Generic.Custom; \n");                  
+                        outfile.WriteLine("using DTStacks.UnityComponents.Communication.MQTT;\r\n" +
+                            "using DTStacks.DataType.Generic.Custom; \r\n");                  
                         outfile.WriteLine("");
                         outfile.WriteLine("namespace " + publisherNamespace);
                         outfile.WriteLine("{");
@@ -133,28 +121,28 @@ namespace DTStacks.Editor.Generator
                         outfile.WriteLine(" ");
                         outfile.WriteLine("public " + messageName + " Msg;");
 
-                        outfile.WriteLine("public string GetData() \n" +
-                            "{ \n" +
-                            "   return Msg.CreateJSONFromData(); \n" +
-                            "} \n");
+                        outfile.WriteLine("public string GetData() \r\n" +
+                            "{ \r\n" +
+                            "   return Msg.CreateJSONFromData(); \r\n" +
+                            "} \r\n");
 
-                        outfile.WriteLine(" public override void InitPublishing()\n" +
-                            "{\n" +
-                            "base.InitPublishing();\n" +
-                            "PublishMsg(GetData()); \n" +
-                            "}\n"
+                        outfile.WriteLine(" public override void InitPublishing()\r\n" +
+                            "{\r\n" +
+                            "base.InitPublishing();\r\n" +
+                            "PublishMsg(GetData()); \r\n" +
+                            "}\r\n"
                             );
 
 
                         outfile.WriteLine(" // Use this for extras during initialization");
-                        outfile.WriteLine(" public override void ExtendedStart () {\n" +
-                            "\n" +
-                            "}\n" +
-                            " \n");
+                        outfile.WriteLine(" public override void ExtendedStart () {\r\n" +
+                            "\r\n" +
+                            "}\r\n" +
+                            " \r\n");
 
                         outfile.WriteLine(" // Extended Update function, will be executed after regular update");
-                        outfile.WriteLine(" public override void ExtendedUpdate () {\n" +
-                            "\n" +
+                        outfile.WriteLine(" public override void ExtendedUpdate () {\r\n" +
+                            "\r\n" +
                             "}");
 
                         outfile.WriteLine("}");
@@ -164,15 +152,5 @@ namespace DTStacks.Editor.Generator
                 AssetDatabase.Refresh();
             }
         }
-        /*
-         * Moved to Message  Generator
-        public enum variableTypes
-        {
-            integer = 0,
-            float64 = 1,
-            boolean = 2
-        }
-        */
-
     }
 }

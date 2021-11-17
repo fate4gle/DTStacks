@@ -85,7 +85,6 @@ namespace DTStacks.UnityComponents.ROS.Helpers
         public Odometry GetOdom(Space space)
         {
             Odometry odom = (space == Space.Self) ? GetLocalOdom() : GetWorldOdom();
-            //this.odom = odom;
             return odom;
         }
         /// <summary>
@@ -97,10 +96,6 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             //Odometry odom = new Odometry();
             if (isROSMsg)
             {
-                //transform.position = new Vector3(10, 10, 10).Unity2ROS().ROS2Unity();
-                odom.child_frame_id = "hello";
-                //odom.pose.pose.position.x = 10f;
-                //odom.pose.pose.position = new Vector3(10, 10, 10).Unity2ROS();
                 odom.pose.pose.position = this.transform.localPosition.Unity2ROS();
                 odom.pose.pose.orientation = this.transform.localRotation.Unity2ROS();
             }

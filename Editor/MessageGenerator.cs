@@ -1,13 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System;
 
 namespace DTStacks.Editor.Generator
 {
     public class MessageGenerator : EditorWindow
     {
-        string publisherName = "GenericPublisher";
-        string publisherNamespace = "DTStacks.DataType.Generic.Custom";
         string msgName = "GenericMessage";
         string msgNamespace = "DTStacks.DataType.Generic.Custom";
 
@@ -68,12 +67,12 @@ namespace DTStacks.Editor.Generator
                 if (isCreatePublisher)
                 {
                     PublisherGenerator pub = new PublisherGenerator();
-                    pub.Create(msgName + "Publisher", "DTStacks.UnityComponents.Generic.Publisher.Custom", msgName);
+                    pub.Create(msgName + "Publisher", "DTStacks.UnityComponents.Generic.Publisher.Custom", msgName, msgNamespace);
                 }
                 if (isCreateSubscriber)
                 {
                     SubscriberGenerator sub = new SubscriberGenerator();
-                    sub.Create(msgName + "Subscriber", "DTStacks.UnityComponents.Generic.Subscriber.Custom", msgName);
+                    sub.Create(msgName + "Subscriber", "DTStacks.UnityComponents.Generic.Subscriber.Custom", msgName, msgNamespace);
                 }
             }
 
@@ -89,25 +88,25 @@ namespace DTStacks.Editor.Generator
                         new StreamWriter(copyPath))
                     {
                         #region includeNamespaces
-                        outfile.WriteLine(  "using System; \n" +
-                                            "using UnityEngine; \n" +
-                                            "using DTStacks.DataType.Templates; \n" +
-                                            "using DTStacks.DataType.Generic.Geometry;" );
+                        outfile.WriteLine(  "using System; \r\n"+
+                                            "using UnityEngine; \r\n " +
+                                            "using DTStacks.DataType.Templates; \r\n " +
+                                            "using DTStacks.DataType.Generic.Geometry; \r\n" );
                         if (includeDTStackType)
                         {
                             outfile.WriteLine(                                                
-                                                "using DTStacks.DataType.Generic.Helpers; \n" +
-                                                "using DTStacks.DataType.Generic.Math; \n" +
-                                                "using DTStacks.DataType.Generic.Navigation;  \n"
+                                                "using DTStacks.DataType.Generic.Helpers; \r\n " +
+                                                "using DTStacks.DataType.Generic.Math; \r\n " +
+                                                "using DTStacks.DataType.Generic.Navigation;  \r\n "
                                                 );
                         }
                         if (isROSMsg)
                         {
                             outfile.WriteLine(
-                                                "using DTStacks.DataType.ROS.Messages.std_msgs; \n" +
-                                                "using DTStacks.DataType.ROS.Messages.nav_msgs; \n" +
-                                                "using DTStacks.DataType.ROS.Messages.geometry_msgs; \n" +
-                                                "using DTStacks.DataType.ROS.Messages.sensor_msgs;  \n"
+                                                "using DTStacks.DataType.ROS.Messages.std_msgs; \r\n " +
+                                                "using DTStacks.DataType.ROS.Messages.nav_msgs; \r\n " +
+                                                "using DTStacks.DataType.ROS.Messages.geometry_msgs; \r\n " +
+                                                "using DTStacks.DataType.ROS.Messages.sensor_msgs;  \r\n "
                                                 );
                         }
                         #endregion
@@ -115,12 +114,10 @@ namespace DTStacks.Editor.Generator
                         #region Write Class Content
                         
                         outfile.WriteLine(
-                                             "namespace " + msgNamespace + "\n" +
-                                             "{ \n " +
-                                             "  [Serializable] \n " +
-                                             "  public class " + msgName + " : Message \n { \n ");// + "  \n ");
-                        //outfile.WriteLine(" ");
-                        //outfile.WriteLine(" ");
+                                             "namespace " + msgNamespace + "\r\n " +
+                                             "{ \r\n  " +
+                                             "  [Serializable] \r\n  " +
+                                             "  public class " + msgName + " : Message \r\n  { \r\n  ");
 
                         for (int i = 0; i < messageElements.Length; i++)
                         {
@@ -151,24 +148,10 @@ namespace DTStacks.Editor.Generator
                         
                         outfile.WriteLine(" ");
                         outfile.WriteLine(" ");
+                        
+                        //Constructor
+                        outfile.WriteLine("         public " + msgName+"(){}");
 
-
-                        /*old, this is included when derived from Message
-                        if (isIncludeJSONfunctions)
-                        {
-                            outfile.WriteLine("         public void FeedDataFromJSON (string s) \n " +
-                                                "       { \n " +
-                                                "           JsonUtility.FromJsonOverwrite(s, this); \n " +
-                                                "       }  \n " +
-                                                "  \n " +
-                                                "       public string CreateJSONFromData() \n " +
-                                                "       { \n " +
-                                                "           return JsonUtility.ToJson(this); \n " +
-                                                "       } \n " +
-                                                "  \n " +
-                                                "  \n ");
-                        }
-                        */
                         outfile.WriteLine("     }");
                         outfile.WriteLine("}");
                     }
@@ -193,6 +176,7 @@ namespace DTStacks.Editor.Generator
             MultiArrayLayout,
             @float,
             @string,
+            @bool,
             Time,
             Accel,
             AccelStamped,

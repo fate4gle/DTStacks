@@ -222,14 +222,12 @@ namespace DTStacks.Communication.MQTT
 
         private void ProcessMqttMessageBackgroundQueue()
         {
-            if (backMessageQueue.Count > 1)
+            if (backMessageQueue.Count >= 1)
             {
                 try
                 {
-
                     foreach (MqttMsgPublishEventArgs msg in backMessageQueue)
                     {
-
                         try
                         {
                             DecodeMessage(msg.Topic, msg.Message);
@@ -238,7 +236,6 @@ namespace DTStacks.Communication.MQTT
                         {
                             Debug.Log(e);
                         }
-
                     }
                 }
                 catch { }

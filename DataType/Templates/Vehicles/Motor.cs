@@ -26,23 +26,9 @@ namespace DTStacks.DataType.Templates.Vehicles
         public bool isOperting;
         public string[] dataPackages;
 
-        public virtual void FeedData(string data)
+        public Motor()
         {
-            string[] s = data.Split(header.headerDelim);
-            string[] sd;
-            if (s.Length > 1)
-            {
-                string[] sh = s[0].Split(header.delim);
-                sd = s[1].Split(header.delim);
-                header.FeedData(sh[0] + header.delim + sh[1] + header.delim + sh[2]);
-            }
-            else
-            {
-                sd = s[0].Split(header.delim);
-            }
 
-            dataPackages = new string[sd.Length];
-            dataPackages = sd;
         }
     }
 }

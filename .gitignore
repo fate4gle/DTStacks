@@ -16,7 +16,7 @@
 #Ignore all .meta file
 *.meta
 #But not source file with postfix. which is everything but a folder
-!*.*.meta
+#!*.*.meta
 
 /Custom/
 # Uncomment this line if you wish to ignore the asset store tools plugin

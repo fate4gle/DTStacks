@@ -18,6 +18,7 @@
 #But not source file with postfix. which is everything but a folder
 !*.*.meta
 
+/Custom/
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 

@@ -14,7 +14,9 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         private bool updateUI = false;
         public bool autoTest = false;
 
-        [Tooltip ("Number of frames after which the next message is published")]
+        [Tooltip("Establish countinous stream of data per defined amount of frames. If false, the publisher operates in One-Shot mode which needs to be triggered externally.")]
+        public bool isUsingContinousUpdate = true;
+        [Tooltip("Number of frames after which the next message is published")]
         public int updateFrames = 20;
         private int frameCounter = 0;
 
@@ -137,11 +139,14 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                 }
                 eventMessages.Clear();
             }
-            frameCounter++;
-            if(frameCounter >= updateFrames)
+            if (isUsingContinousUpdate)
             {
-                frameCounter = 0;
-                InitPublishing();
+                frameCounter++;
+                if (frameCounter >= updateFrames)
+                {
+                    frameCounter = 0;
+                    InitPublishing();
+                }
             }
             ExtendedUpdate();
         }

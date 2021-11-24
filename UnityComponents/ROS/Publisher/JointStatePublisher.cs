@@ -10,11 +10,12 @@ namespace DTStacks.UnityComponents.ROS.Publisher
     {
         [Tooltip("The last published joint state message")]
         public JointStateMsg jointStateMsg;
+
         [Tooltip("The robot which the joint state message shall represent")]
         public GameObject robotParent;
 
-        [Tooltip("List of all joint state controllers found within the object tree below the robot parent.")]
-        public JointStateController[] jointStateControllers;
+        [Tooltip("Get a refrence to the joint state handler.")]
+        public JointStateHandler jointStateHandler;
 
         /// <summary>
         /// Gets the latest joint states from all known joint state controllers and creates a JSON representation of it.
@@ -31,31 +32,23 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         void GetJointStates()
         {
-            for (int i = 0; i < jointStateControllers.Length; i++)
-            {
-                jointStateMsg.name[i] = jointStateControllers[i].name;
-                jointStateMsg.position[i] = jointStateControllers[i].GetJointState();                
-            }
+            jointStateMsg = jointStateHandler.GetJointStateMsg();
         }
 
         public override void ExtendedStart()
         {
-            jointStateMsg.SetNumberOfJoints(jointStateControllers.Length);
-            for(int i =0; i<jointStateControllers.Length; i++)
-            {
-                jointStateMsg.name[i] = jointStateControllers[i].name;
-            }
+            
         }
         public override void ExtendedUpdate()
         {
 
         }
-
         public override void InitPublishing()
         {
             base.InitPublishing();
             PublishMsg(GetData());
         }
+
         #region EditorFunctions
 
         /// <summary>
@@ -63,8 +56,8 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         public void FindJoints()
         {
-            jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
-            foreach(JointStateController jsc in jointStateControllers)
+            jointStateHandler.jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
+            foreach(JointStateController jsc in jointStateHandler.jointStateControllers)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = true;

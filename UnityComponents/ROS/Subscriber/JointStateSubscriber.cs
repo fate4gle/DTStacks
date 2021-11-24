@@ -19,30 +19,20 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         [Tooltip("Interpolation speed with which the robot adapts its joint positions towards the latest message.(Used for smoothing the joint movements at lower update rates.)")]
         public float interpolationSpeed = 0.1f;
 
+        public JointStateHandler jointStateHandler;
 
-        public JointStateController[] jointStateControllers;
+
+        //public JointStateController[] jointStateControllers;
         public override void ExtendedStart()
         {
-            jointStateMsg.SetNumberOfJoints(jointStateControllers.Length);
+            jointStateMsg.SetNumberOfJoints(jointStateHandler.jointStateControllers.Length);
         }
         public void FeedData(string s)
         {
             jointStateMsg.FeedDataFromJSON(s);
-            UpdateJointStates(jointStateControllers,jointStateMsg, isROSMsg);            
+            jointStateHandler.UpdateJointStates(jointStateHandler.jointStateControllers,jointStateMsg, isROSMsg);            
         }
-        /// <summary>
-        /// Initiates all JointStateControllers to update their joint angle based on the JointStateMessage. Indicate if it is a ROS-Message.
-        /// </summary>
-        /// <param name="jsc">List of <c>JointStateControllers</c></param>
-        /// <param name="jsm">The <c>JointStateMessage</c> with updated paramters</param>
-        /// <param name="ros">Bool indicating if it is a ros-message and additional steps have to be taken.</param>
-        public void UpdateJointStates(JointStateController[] jsc, JointStateMsg jsm, bool ros )
-        {
-            for( int i = 0; i< jsc.Length; i++)
-            {
-                jsc[i].UpdateJoint(i, jsm, ros);
-            }
-        }
+       
         /// <summary>
         /// Defines what happens with the message. Use this to start the Unity-Data-pipeline
         /// </summary>
@@ -56,8 +46,8 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         /// </summary>
         public void FindJoints()
         {
-            jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
-            foreach (JointStateController jsc in jointStateControllers)
+            jointStateHandler.jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
+            foreach (JointStateController jsc in jointStateHandler.jointStateControllers)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = false;

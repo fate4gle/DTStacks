@@ -6,7 +6,6 @@ using UnityEngine;
 using DTStacks.DataType.Generic.Helpers; 
  using DTStacks.DataType.Generic.Math; 
  using DTStacks.DataType.Generic.Navigation;  
- using DTStacks.DataType.Generic.Graphics;  
  
 using DTStacks.DataType.ROS.Messages.std_msgs; 
  using DTStacks.DataType.ROS.Messages.nav_msgs; 
@@ -16,13 +15,13 @@ using DTStacks.DataType.ROS.Messages.std_msgs;
 namespace DTStacks.DataType.Generic.Custom
  { 
     [Serializable] 
-    public class NewMessage : Message 
+    public class SomeMessage : Message 
   { 
   
-         public  Header header;
-         public  int someInt;
+         public  string myString;
+         public  float myFloat;
  
  
-         public NewMessage(){}
+         public SomeMessage(){}
      }
 }

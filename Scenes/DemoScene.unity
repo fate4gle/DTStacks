@@ -1556,7 +1556,7 @@ GameObject:
   - component: {fileID: 1738762216}
   - component: {fileID: 1738762215}
   m_Layer: 0
-  m_Name: ML_DTStacks
+  m_Name: DTStacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1574,15 +1574,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa080935c9c1e846a9c13f853dcd19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: mqtt.the-xr-guy.com
+  brokerAddress: localhost
   brokerPort: 1883
   isEncrypted: 0
   connectionDelay: 500
   timeoutOnConnection: 30000
   autoConnect: 1
-  mqttUserName: MirrorLabs
-  mqttPassword: MirrorLabs21
-  topic: mirrorlabs/unity/odom
+  mqttUserName: 
+  mqttPassword: 
+  topic: unity/odom
   autoTest: 0
   isROSMsg: 0
   odomHandler: {fileID: 394736921}
@@ -1630,15 +1630,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23ca568e153f204bbdf9f5e14408ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: mqtt.the-xr-guy.com
+  brokerAddress: localhost
   brokerPort: 1883
   isEncrypted: 0
   connectionDelay: 500
   timeoutOnConnection: 30000
   autoConnect: 1
-  mqttUserName: MirrorLabs
-  mqttPassword: MirrorLabs21
-  topic: mirrorlabs/unity/robot/joint_states
+  mqttUserName: 
+  mqttPassword: 
+  topic: unity/robot/joint_states
   autoTest: 0
   jointStateMsg:
     header:
@@ -1667,15 +1667,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cbb58417fc240c4b94fa3c83fb6f47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: mqtt.the-xr-guy.com
+  brokerAddress: localhost
   brokerPort: 1883
   isEncrypted: 0
   connectionDelay: 500
   timeoutOnConnection: 30000
   autoConnect: 1
-  mqttUserName: MirrorLabs
-  mqttPassword: MirrorLabs21
-  topic: mirrorlabs/unity/odom
+  mqttUserName: 
+  mqttPassword: 
+  topic: unity/odom
   autoTest: 0
   isUsingContinousUpdate: 1
   updateFrames: 30
@@ -1725,15 +1725,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e99dc3ed336a364698e19b778941338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokerAddress: mqtt.the-xr-guy.com
+  brokerAddress: localhost
   brokerPort: 1883
   isEncrypted: 0
   connectionDelay: 500
   timeoutOnConnection: 30000
   autoConnect: 1
-  mqttUserName: MirrorLabs
-  mqttPassword: MirrorLabs21
-  topic: mirrorlabs/unity/robot/joint_states
+  mqttUserName: 
+  mqttPassword: 
+  topic: unity/robot/joint_states
   autoTest: 0
   isUsingContinousUpdate: 1
   updateFrames: 100

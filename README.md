@@ -5,7 +5,7 @@ For documentation of this project please proceed to the [Wiki](https://github.co
 ***
 # Quickstart Guide
 
-# Prerequisits 
+## Prerequisits 
 * Unity 2018.1 (or later)
 * Visual Studio 2017 (or later) with "Game development with Unity" workload
 * Access to an MQTT Broker
@@ -15,12 +15,12 @@ For more information regarding setting up the development environment, please vi
 
 ***
 
-# Create a new project in Unity 
+## Create a new project in Unity 
 
 To create a new project, open Unity Hub, navigate to the project tab and click on the `New` button at the top right.
 Choose your desired project setup and click on `Create` to instruct unity to create the new project automatically.
 
-# Including DTStacks
+## Including DTStacks
 
 You can choose to download DTStacks in multiple ways. Either by cloning the repository, download the repo as a complete .zip file or simply download the packages you desire by licking on it in the list below:
 
@@ -30,7 +30,7 @@ _Note: This list will be extended with separate modules, once dedicated packages
 
 Once downloaded, unpack the zip file and simply drag the DTStacks folder in your Unity project folder. Unity will automatically take care of importing all files accordingly. Once the import is completed, DTStacks is ready to be used.
 
-# Create a communication pipeline
+## Create a communication pipeline
 To simplify and speed up development efforts, DTStacks includes a message generator that allows a user to construct new messages, publishers, and subscribers using a simple interface. With only a couple of clicks, a new communication pipeline can be created!
 
 To get started, click on the new tab `DTStacks`, navigate to `Create`, and click on `Message`. 
@@ -47,7 +47,7 @@ This will open a new editor window where a new message can be configured, do thi
 
 By clicking on `Generate Message` the new message will be created and stored in the `DTStacks>DataType>Generic>Custom` directory. (If publisher and subscriber are enabled, these will be located under `DTStacks>UnityComponents>Generic>Publisher>Custom` and `DTStacks>UnityComponents>Generic>Subscriber>Custom`)
 
-# Setup of Publisher and Subscriber
+## Setup of Publisher and Subscriber
 
 With a new message, publisher and subscriber, create a new game object in the hierarchy of your scene. (Right-click in your Scene hierarchy and select `Create Empty`.) Once created, click on the `Add Component` button in the inspector and search for your new publisher and add it to your script. Then repeat for the subscriber. 
 

@@ -1,5 +1,5 @@
 
-The "Digital Twinning Stacks": An open-source MQTT framework for Unity3D.
+The "Digital Twinning Stacks": An open-source data communication framework for Unity3D.
 For documentation of this project please proceed to the [Wiki](https://github.com/fate4gle/DTStacks/wiki)! If questions remain, please enter an issue regarding it!
 
 ***
@@ -8,8 +8,10 @@ For documentation of this project please proceed to the [Wiki](https://github.co
 ## Prerequisits 
 * Unity 2018.1 (or later)
 * Visual Studio 2017 (or later) with "Game development with Unity" workload
-* Access to an MQTT Broker
+* External datasource / data receiver
+* (Access to an MQTT Broker for MQTT usage)
 
+(The example of an MQTT based setup will be used. However, the setup is similar for other communication methods!)
 For more information regarding setting up the development environment, please visit the [Development Environment Setup](https://github.com/fate4gle/DTStacks/wiki/Development-Environment-Setup) wiki page.
 
 

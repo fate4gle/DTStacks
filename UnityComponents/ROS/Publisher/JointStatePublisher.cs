@@ -15,7 +15,7 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         public GameObject robotParent;
 
         [Tooltip("Get a refrence to the joint state handler.")]
-        public JointStateHandler jointStateHandler;
+        public JointStateProcessor JointStateProcessor;
 
         /// <summary>
         /// Gets the latest joint states from all known joint state controllers and creates a JSON representation of it.
@@ -32,7 +32,7 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         void GetJointStates()
         {
-            jointStateMsg = jointStateHandler.GetJointStateMsg();
+            jointStateMsg = JointStateProcessor.GetJointStateMsg();
         }
 
         public override void ExtendedStart()
@@ -56,8 +56,8 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         public void FindJoints()
         {
-            jointStateHandler.jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
-            foreach(JointStateController jsc in jointStateHandler.jointStateControllers)
+            JointStateProcessor.jointStateControllers = robotParent.GetComponentsInChildren<JointStateActuator>();
+            foreach(JointStateActuator jsc in JointStateProcessor.jointStateControllers)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = true;

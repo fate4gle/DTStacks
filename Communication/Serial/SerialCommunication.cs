@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using DTStacks.UnityComponents.Communication.Templates;
 
 
 #if !WINDOWS_UWP
@@ -14,7 +15,7 @@ using System.IO.Ports;
 
 namespace DTStacks.Communication.Serial
 {
-    public partial class SerialCommunication : MonoBehaviour
+    public partial class SerialCommunication : Transceiver
     {
         public SerialPort serialPort;
         public string portName = "COM1";
@@ -25,7 +26,7 @@ namespace DTStacks.Communication.Serial
         /// Configuration of the SerialPort.
         /// </summary>
         /// <param name="portName">Name of the SerialPort e.g. "COM1"</param>
-        /// <param name="baudRate">The baudrate of the Serialport e.g.9600</param>
+        /// <param name="baudRate">The baudrate of the Serialport e.g. 9600</param>
         /// <param name="parity">The Parity to be used by the SerialConnection</param>
         public void ConfigurateSerialPort(string portName, int baudRate, Parity parity)
         {
@@ -56,15 +57,12 @@ namespace DTStacks.Communication.Serial
             string message = Encoding.UTF8.GetString(buf);
             if (!string.IsNullOrEmpty(message)) { ProcessMessage(message); }
         }
-        public virtual void ProcessMessage(string message)
-        {
 
-        }
         /// <summary>
         /// Publishes the message after encoding it to UTF8.
         /// </summary>
         /// <param name="message"></param>
-        public void PublishMsg(string message)
+        public override void SendMessage(string message)
         {
             byte[] buf = Encoding.UTF8.GetBytes(message);
             serialPort.Write(buf, 0, buf.Length);

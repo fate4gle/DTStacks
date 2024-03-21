@@ -2,11 +2,12 @@
 
 using DTStacks.DataType.ROS.Messages.sensor_msgs;
 using DTStacks.UnityComponents.Converters;
+using DTStacks.UnityComponents.Communication.Templates;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
     [RequireComponent(typeof(UnityEngine.HingeJoint))]
-    public class JointStateController : MonoBehaviour
+    public class JointStateActuator : Actutor
     {
         [Tooltip("The name of the joint in the relevant data message.")]
         public string name;
@@ -37,7 +38,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             joint = this.GetComponent<HingeJoint>();
         }
         /// <summary>
-        /// Update the joint state at which the <c>JointStateController</c> is attached based on the index
+        /// Update the joint state at which the <c>JointStateActuator</c> is attached based on the index
         /// </summary>
         /// <param name="index">Hierachical position of the joint</param>
         /// <param name="msg"><c>JointStateMsg</c> containing the information</param>

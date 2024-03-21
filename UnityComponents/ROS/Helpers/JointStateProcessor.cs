@@ -5,16 +5,17 @@ using UnityEngine;
 using DTStacks.UnityComponents.Communication.MQTT;
 using DTStacks.UnityComponents.ROS.Helpers;
 using DTStacks.DataType.ROS.Messages.sensor_msgs;
+using DTStacks.UnityComponents.Communication.Templates;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
-    public class JointStateHandler : MonoBehaviour
+    public class JointStateProcessor : Processor
     {
         [Tooltip("The latets jointStateMsg")]
         public JointStateMsg jointStateMsg;
 
         [Tooltip("List of all joint state controllers found within the object tree below the robot parent.")]
-        public JointStateController[] jointStateControllers;
+        public JointStateActuator[] jointStateControllers;
 
 
         private void Start()
@@ -45,7 +46,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
         /// <param name="jsc">List of <c>JointStateControllers</c></param>
         /// <param name="jsm">The <c>JointStateMessage</c> with updated paramters</param>
         /// <param name="ros">Bool indicating if it is a ros-message and additional steps have to be taken.</param>
-        public void UpdateJointStates(JointStateController[] jsc, JointStateMsg jsm, bool ros)
+        public void UpdateJointStates(JointStateActuator[] jsc, JointStateMsg jsm, bool ros)
         {
             for (int i = 0; i < jsc.Length; i++)
             {

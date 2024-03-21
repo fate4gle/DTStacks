@@ -19,18 +19,18 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         [Tooltip("Interpolation speed with which the robot adapts its joint positions towards the latest message.(Used for smoothing the joint movements at lower update rates.)")]
         public float interpolationSpeed = 0.1f;
 
-        public JointStateHandler jointStateHandler;
+        public JointStateProcessor JointStateProcessor;
 
 
-        //public JointStateController[] jointStateControllers;
+        //public JointStateActuator[] jointStateControllers;
         public override void ExtendedStart()
         {
-            jointStateMsg.SetNumberOfJoints(jointStateHandler.jointStateControllers.Length);
+            jointStateMsg.SetNumberOfJoints(JointStateProcessor.jointStateControllers.Length);
         }
         public void FeedData(string s)
         {
             jointStateMsg.FeedDataFromJSON(s);
-            jointStateHandler.UpdateJointStates(jointStateHandler.jointStateControllers,jointStateMsg, isROSMsg);            
+            JointStateProcessor.UpdateJointStates(JointStateProcessor.jointStateControllers,jointStateMsg, isROSMsg);            
         }
        
         /// <summary>
@@ -46,8 +46,8 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         /// </summary>
         public void FindJoints()
         {
-            jointStateHandler.jointStateControllers = robotParent.GetComponentsInChildren<JointStateController>();
-            foreach (JointStateController jsc in jointStateHandler.jointStateControllers)
+            JointStateProcessor.jointStateControllers = robotParent.GetComponentsInChildren<JointStateActuator>();
+            foreach (JointStateActuator jsc in JointStateProcessor.jointStateControllers)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = false;

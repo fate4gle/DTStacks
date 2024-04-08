@@ -24,12 +24,12 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
 
         public override void ExtendedStart()
         {
-            jointStateMsg.SetNumberOfJoints(JointStateProcessor.jointStateControllers.Length);
+            jointStateMsg.SetNumberOfJoints(JointStateProcessor.JointStateActuators.Length);
         }
         public void FeedData(string s)
         {            
             jointStateMsg.FeedDataFromJSON(s);
-            JointStateProcessor.UpdateJointStates(JointStateProcessor.jointStateControllers,jointStateMsg, isROSMsg);            
+            JointStateProcessor.UpdateJointStates(JointStateProcessor.JointStateActuators,jointStateMsg, isROSMsg);            
         }
        
         /// <summary>
@@ -45,8 +45,8 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         /// </summary>
         public void FindJoints()
         {
-            JointStateProcessor.jointStateControllers = robotParent.GetComponentsInChildren<JointStateActuator>();
-            foreach (JointStateActuator jsc in JointStateProcessor.jointStateControllers)
+            JointStateProcessor.JointStateActuators = robotParent.GetComponentsInChildren<JointStateActuator>();
+            foreach (JointStateActuator jsc in JointStateProcessor.JointStateActuators)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = false;

@@ -18,24 +18,24 @@ namespace DTStacks.UnityComponents.ROS.Helpers
         public JointStateMsg jointStateMsg;
 
         [Tooltip("List of all joint state controllers found within the object tree below the robot parent.")]
-        public JointStateActuator[] jointStateControllers;
+        public JointStateActuator[] JointStateActuators;
 
 
         private void Start()
         {
-            jointStateMsg.SetNumberOfJoints(jointStateControllers.Length);
-            for (int i = 0; i < jointStateControllers.Length; i++)
+            jointStateMsg.SetNumberOfJoints(JointStateActuators.Length);
+            for (int i = 0; i < JointStateActuators.Length; i++)
             {
-                jointStateMsg.name[i] = jointStateControllers[i].name;
+                jointStateMsg.name[i] = JointStateActuators[i].name;
             }
         }
 
         public JointStateMsg GetJointStateMsg()
         {
-            for (int i = 0; i < jointStateControllers.Length; i++)
+            for (int i = 0; i < JointStateActuators.Length; i++)
             {
-                jointStateMsg.name[i] = jointStateControllers[i].name;
-                jointStateMsg.position[i] = jointStateControllers[i].GetJointState();
+                jointStateMsg.name[i] = JointStateActuators[i].name;
+                jointStateMsg.position[i] = JointStateActuators[i].GetJointState();
             }
             return jointStateMsg;
         }

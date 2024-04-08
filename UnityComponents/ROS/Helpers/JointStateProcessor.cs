@@ -5,16 +5,20 @@ using UnityEngine;
 using DTStacks.UnityComponents.Communication.MQTT;
 using DTStacks.UnityComponents.ROS.Helpers;
 using DTStacks.DataType.ROS.Messages.sensor_msgs;
+using DTStacks.UnityComponents.Communication.Templates;
+using System;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
-    public class JointStateHandler : MonoBehaviour
+    public class JointStateProcessor : Processor
     {
-        [Tooltip("The latets jointStateMsg")]
+        [Tooltip("The latest jointStateMsg")]
         public JointStateMsg jointStateMsg;
 
         [Tooltip("List of all joint state controllers found within the object tree below the robot parent.")]
-        public JointStateController[] jointStateControllers;
+        public JointStateActuator[] jointStateControllers;
 
 
         private void Start()
@@ -40,16 +44,17 @@ namespace DTStacks.UnityComponents.ROS.Helpers
 
 
         /// <summary>
-        /// Initiates all JointStateControllers to update their joint angle based on the JointStateMessage. Indicate if it is a ROS-Message.
+        /// Initiates all JointStateActuators to update their joint angle based on the JointStateMessage. Indicate if it is a ROS-Message.
         /// </summary>
-        /// <param name="jsc">List of <c>JointStateControllers</c></param>
+        /// <param name="jsa">List of <c>JointStateActuators</c></param>
         /// <param name="jsm">The <c>JointStateMessage</c> with updated paramters</param>
         /// <param name="ros">Bool indicating if it is a ros-message and additional steps have to be taken.</param>
-        public void UpdateJointStates(JointStateController[] jsc, JointStateMsg jsm, bool ros)
+        public void UpdateJointStates(JointStateActuator[] jsa, JointStateMsg jsm, bool ros)
         {
-            for (int i = 0; i < jsc.Length; i++)
+            for ( int i = 0; i < jsm.name.Length; i++)
             {
-                jsc[i].UpdateJoint(i, jsm, ros);
+                var foundJoinstStateActuator = jsa.SingleOrDefault(item => item.name == jsm.name[i]);
+                foundJoinstStateActuator.UpdateJoint(i, jsm, ros);
             }
         }
     }

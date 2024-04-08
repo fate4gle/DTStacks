@@ -2,15 +2,18 @@
 
 using DTStacks.DataType.ROS.Messages.sensor_msgs;
 using DTStacks.UnityComponents.Converters;
+using DTStacks.UnityComponents.Communication.Templates;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
     [RequireComponent(typeof(UnityEngine.HingeJoint))]
-    public class JointStateController : MonoBehaviour
+    public class JointStateActuator : Actutor
     {
         [Tooltip("The name of the joint in the relevant data message.")]
         public string name;
-        [Tooltip("The current angular state of the joint.")]
+        [Tooltip("The current angular state of the joint in radian.")]
+        public float angleInRad;
+        [Tooltip("The current angular state of the joint in degree.")]
         public float angle;
         [Tooltip("The current angular velocity of the joint.")]
         public float velocity;
@@ -37,7 +40,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             joint = this.GetComponent<HingeJoint>();
         }
         /// <summary>
-        /// Update the joint state at which the <c>JointStateController</c> is attached based on the index
+        /// Update the joint state at which the <c>JointStateActuator</c> is attached based on the index
         /// </summary>
         /// <param name="index">Hierachical position of the joint</param>
         /// <param name="msg"><c>JointStateMsg</c> containing the information</param>
@@ -47,6 +50,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             name = msg.name[index];
             this.isConvertingNecessary = isConvertingNecessary;
             //angle = UnWrapAngle(msg.position[index]);
+            angleInRad = msg.position[index];
             angle = Mathf.Rad2Deg *msg.position[index];            
             velocity = msg.velocity[index];
             effort = msg.effort[index];            

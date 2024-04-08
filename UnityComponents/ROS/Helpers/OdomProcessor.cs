@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
-    public class OdomHandler : MonoBehaviour
+    public class OdomProcessor : MonoBehaviour
     {
         [Tooltip("The currently set odometry message/data")]
         public Odometry odom;
@@ -12,7 +12,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
         public bool isROSMsg;
         [Tooltip("The speed with which the target pose shall be interpolated towards. (Smoothing of movement if update-rate is low.)")]
         public float interpolationSpeed;
-        [Tooltip("Specify the usage of this OdomHandler, if true, the odometry will automatically be processed each frame.")]
+        [Tooltip("Specify the usage of this OdomProcessor, if true, the odometry will automatically be processed each frame.")]
         public bool isPublishing;
 
         [HideInInspector]
@@ -31,7 +31,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
         }
 
         /// <summary>
-        /// Each frame Unity checks if the OdomHandler is used for publishing, if this is not the case (e.g. it is subscribed), the object is moved.
+        /// Each frame Unity checks if the OdomProcessor is used for publishing, if this is not the case (e.g. it is subscribed), the object is moved.
         /// </summary>
         private void Update()
         {

@@ -12,7 +12,7 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         [Tooltip("Specify if the incoming odometry's origin is a ROS environment. The odommetry will autommatically be transfered to the unity coordinate system.")]
         public bool isROSMsg;
         [Tooltip("The handler attached to the gamobject to which the odometry shall be applied to.")]
-        public OdomHandler odomHandler;
+        public OdomProcessor odomHandler;
         [Tooltip("The reference system of the odometry message. (Default = Self = local space)")]
         public Space referenceSystem;
         [Tooltip("The latest received odometry message.")]

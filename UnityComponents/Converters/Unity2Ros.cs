@@ -33,7 +33,7 @@ namespace DTStacks.UnityComponents.Converters
         /// <returns name="unityQuaternion"> Quaternion as type of <c>UnityEngine.Quaternion</c></returns>
         public static DTStacks.DataType.Generic.Geometry.Quaternion Unity2ROS(this Quaternion unityQuaternion)
         {
-            DTStacks.DataType.Generic.Geometry.Quaternion rosQuaternion = new DTStacks.DataType.Generic.Geometry.Quaternion(unityQuaternion.x, unityQuaternion.y, unityQuaternion.z, unityQuaternion.w);
+            DTStacks.DataType.Generic.Geometry.Quaternion rosQuaternion = new DTStacks.DataType.Generic.Geometry.Quaternion(-unityQuaternion.z, unityQuaternion.x, -unityQuaternion.y, unityQuaternion.w);
             return rosQuaternion;
         }
     }

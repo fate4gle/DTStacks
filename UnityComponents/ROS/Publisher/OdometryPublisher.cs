@@ -10,7 +10,7 @@ namespace DTStacks.UnityComponents.ROS.Publisher
     {
 
         [Tooltip("The odometry handler which shall be used for this publisher.")]
-        public OdomHandler odomHandler;
+        public OdomProcessor odomHandler;
         [Tooltip("The reference system of the odometry message. (Default = Self = local space)")]
         public Space referenceSystem;
         [Tooltip("The current odometry message.")]

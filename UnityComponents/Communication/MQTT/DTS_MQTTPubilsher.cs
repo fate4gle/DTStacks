@@ -19,6 +19,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         [Tooltip("Number of frames after which the next message is published")]
         public int updateFrames = 20;
         private int frameCounter = 0;
+        private bool isConnected;
 
 
 
@@ -29,7 +30,12 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         }
         public void PublishMsg(string s)
         {
-            client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(s), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            if (client.ClientId != null)
+            {
+                client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(s), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+            }
+            //client.Publish(topic, System.Text.Encoding.UTF8.GetBytes(s), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
+
         }
 
         public void SetBrokerAddress(string brokerAddress)
@@ -61,6 +67,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         {
             base.OnConnected();
             Debug.Log("MQTT Connected");
+            isConnected = true;
 
             if (autoTest)
             {
@@ -76,16 +83,19 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void OnConnectionFailed(string errorMessage)
         {
             Debug.Log("CONNECTION FAILED! " + errorMessage);
+            isConnected = false;
         }
 
         protected override void OnDisconnected()
         {
             Debug.Log("Disconnected.");
+            isConnected = false;
         }
 
         protected override void OnConnectionLost()
         {
             Debug.Log("CONNECTION LOST!");
+            isConnected = false;
         }
 
 
@@ -139,7 +149,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                 }
                 eventMessages.Clear();
             }
-            if (isUsingContinousUpdate)
+            if (isUsingContinousUpdate && isConnected)
             {
                 frameCounter++;
                 if (frameCounter >= updateFrames)
@@ -170,6 +180,10 @@ namespace DTStacks.UnityComponents.Communication.MQTT
             {
                 autoConnect = true;
             }
+        }
+        private void OnApplicationQuit()
+        {
+            Disconnect();
         }
     }
 }

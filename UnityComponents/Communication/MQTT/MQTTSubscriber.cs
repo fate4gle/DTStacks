@@ -1,4 +1,5 @@
 ﻿
+using DTStacks.UnityComponents.Communication.Templates;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace DTStacks.Communication.MQTT
     /// <summary>
     /// Generic MonoBehavior wrapping a MQTT client, using a double buffer to postpone message processing in the main thread. 
     /// </summary>
-    public class MQTTSubscriber : MonoBehaviour
+    public class MQTTSubscriber : Transceiver
     {
         [Header("MQTT broker configuration")]
         [Tooltip("IP address or URL of the host running the broker")]
@@ -158,8 +159,9 @@ namespace DTStacks.Communication.MQTT
         /// <summary>
         /// Connect on startup if autoConnect is set to true.
         /// </summary>
-        protected virtual void Start()
+        public override void Start()
         {
+            base.Start();
             ExtendedStart();
             if (autoConnect)
             {

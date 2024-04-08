@@ -15,6 +15,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         private List<string> eventMessages = new List<string>();
         private bool updateUI = false;
         public bool autoTest = false;
+        private bool isConnected = false;
 
 
 
@@ -74,7 +75,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
 
 
 
-        protected override void Start()
+        public override void Start()
         {
             base.Start();
         }

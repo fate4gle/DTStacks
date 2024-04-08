@@ -18,19 +18,18 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         [Range(1f, 0.001f)]
         [Tooltip("Interpolation speed with which the robot adapts its joint positions towards the latest message.(Used for smoothing the joint movements at lower update rates.)")]
         public float interpolationSpeed = 0.1f;
-
+        [Tooltip("The JointStateProcessor who is controlling the JointStateActuators in question.")]
         public JointStateProcessor JointStateProcessor;
 
 
-        //public JointStateActuator[] jointStateControllers;
         public override void ExtendedStart()
         {
-            jointStateMsg.SetNumberOfJoints(JointStateProcessor.jointStateControllers.Length);
+            jointStateMsg.SetNumberOfJoints(JointStateProcessor.JointStateActuators.Length);
         }
         public void FeedData(string s)
-        {
+        {            
             jointStateMsg.FeedDataFromJSON(s);
-            JointStateProcessor.UpdateJointStates(JointStateProcessor.jointStateControllers,jointStateMsg, isROSMsg);            
+            JointStateProcessor.UpdateJointStates(JointStateProcessor.JointStateActuators,jointStateMsg, isROSMsg);            
         }
        
         /// <summary>
@@ -42,12 +41,12 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
             FeedData(msg);
         }
         /// <summary>
-        /// Editor Void: Only used for the UnityEditor. Finds and configures the JointStateControllers in hierachical order
+        /// Editor Void: Only used for the UnityEditor. Finds and configures the JointStateActuators in hierachical order
         /// </summary>
         public void FindJoints()
         {
-            JointStateProcessor.jointStateControllers = robotParent.GetComponentsInChildren<JointStateActuator>();
-            foreach (JointStateActuator jsc in JointStateProcessor.jointStateControllers)
+            JointStateProcessor.JointStateActuators = robotParent.GetComponentsInChildren<JointStateActuator>();
+            foreach (JointStateActuator jsc in JointStateProcessor.JointStateActuators)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = false;

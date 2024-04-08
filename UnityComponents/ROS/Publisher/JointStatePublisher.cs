@@ -56,8 +56,8 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         public void FindJoints()
         {
-            JointStateProcessor.jointStateControllers = robotParent.GetComponentsInChildren<JointStateActuator>();
-            foreach(JointStateActuator jsc in JointStateProcessor.jointStateControllers)
+            JointStateProcessor.JointStateActuators = robotParent.GetComponentsInChildren<JointStateActuator>();
+            foreach(JointStateActuator jsc in JointStateProcessor.JointStateActuators)
             {
                 jsc.name = jsc.gameObject.name;
                 jsc.isPublishing = true;

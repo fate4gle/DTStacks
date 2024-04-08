@@ -11,7 +11,9 @@ namespace DTStacks.UnityComponents.ROS.Helpers
     {
         [Tooltip("The name of the joint in the relevant data message.")]
         public string name;
-        [Tooltip("The current angular state of the joint.")]
+        [Tooltip("The current angular state of the joint in radian.")]
+        public float angleInRad;
+        [Tooltip("The current angular state of the joint in degree.")]
         public float angle;
         [Tooltip("The current angular velocity of the joint.")]
         public float velocity;
@@ -48,6 +50,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             name = msg.name[index];
             this.isConvertingNecessary = isConvertingNecessary;
             //angle = UnWrapAngle(msg.position[index]);
+            angleInRad = msg.position[index];
             angle = Mathf.Rad2Deg *msg.position[index];            
             velocity = msg.velocity[index];
             effort = msg.effort[index];            

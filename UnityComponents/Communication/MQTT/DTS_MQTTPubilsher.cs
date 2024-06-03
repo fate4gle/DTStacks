@@ -11,7 +11,6 @@ namespace DTStacks.UnityComponents.Communication.MQTT
     public partial class DTS_MQTTPubilsher : MQTTPublisher
     {
         private List<string> eventMessages = new List<string>();
-        private bool updateUI = false;
         public bool autoTest = false;
 
         [Tooltip("Establish countinous stream of data per defined amount of frames. If false, the publisher operates in One-Shot mode which needs to be triggered externally.")]
@@ -117,7 +116,14 @@ namespace DTStacks.UnityComponents.Communication.MQTT
             string msg = System.Text.Encoding.UTF8.GetString(message);
             Debug.Log("Received: " + msg);
             StoreMessage(msg);
-            if (topic == topic)
+
+            if (autoTest)
+            {
+                autoTest = false;
+                Disconnect();
+            }
+            /* EntryPoint if used for multiple topics to publish to...
+            if (topic == listOfTopic) 
             {
                 if (autoTest)
                 {
@@ -125,6 +131,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                     Disconnect();
                 }
             }
+            */
         }
 
         private void StoreMessage(string eventMsg)
@@ -181,9 +188,9 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                 autoConnect = true;
             }
         }
-        private void OnApplicationQuit()
+        public override void OnApplicationQuit()
         {
-            Disconnect();
+            base.OnApplicationQuit();
         }
     }
 }

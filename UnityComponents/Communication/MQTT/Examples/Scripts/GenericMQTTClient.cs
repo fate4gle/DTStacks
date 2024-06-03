@@ -42,7 +42,6 @@ namespace DTStacks.Communication.MQTT
     {
         
         private List<string> eventMessages = new List<string>();
-        private bool updateUI = false;
         public bool autoTest = false;
 
         FancyTestClass fancy = new FancyTestClass();

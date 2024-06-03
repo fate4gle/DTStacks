@@ -132,7 +132,7 @@ namespace DTStacks.Communication.MQTT
         /// <summary>
         /// Disconnect before the application quits.
         /// </summary>
-        protected virtual void OnApplicationQuit()
+        public virtual void OnApplicationQuit()
         {
             CloseConnection();
         }

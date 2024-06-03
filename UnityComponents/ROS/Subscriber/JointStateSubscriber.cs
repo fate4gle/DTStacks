@@ -29,7 +29,7 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         public void FeedData(string s)
         {            
             jointStateMsg.FeedDataFromJSON(s);
-            JointStateProcessor.UpdateJointStates(JointStateProcessor.JointStateActuators,jointStateMsg, isROSMsg);            
+            JointStateProcessor.ProcessMessage(JointStateProcessor.JointStateActuators,jointStateMsg, isROSMsg);            
         }
        
         /// <summary>

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DTStacks.UnityComponents.Communication.Templates
 {
-    public partial class Actutor : MonoBehaviour
+    public partial class Actuator : MonoBehaviour
     {
         public virtual void FeedData() { }
         public virtual void GetData() { }

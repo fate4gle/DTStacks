@@ -9,7 +9,7 @@ namespace DTStacks.UnityComponents.Communication.Templates
 {
     public partial class Processor : MonoBehaviour
     {
-        public virtual void GetDataFromActutor() { }
+        public virtual void GetDataFromActuator() { }
         public virtual void ProcessMessage() { }
         public virtual void SendDataToActuator() { }
 

@@ -19,7 +19,7 @@ namespace DTStacks.UnityComponents.Communication.Templates
             
         }
         public virtual void OnDataReceived(string message) { }
-        public virtual void SendMessage(string message) { }
+        public new virtual void SendMessage(string message) { }
         public virtual void ProcessMessage(string message) { }
     }
 }

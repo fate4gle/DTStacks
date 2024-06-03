@@ -13,7 +13,6 @@ namespace DTStacks.UnityComponents.Communication.MQTT
     public partial class DTS_MQTTSubscriber : MQTTSubscriber
     {
         private List<string> eventMessages = new List<string>();
-        private bool updateUI = false;
         public bool autoTest = false;
         private bool isConnected = false;
 
@@ -43,6 +42,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void OnConnected()
         {
             base.OnConnected();
+            isConnected= true;
             Debug.Log("MQTT Connected");
 
         }
@@ -65,11 +65,13 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void OnDisconnected()
         {
             Debug.Log("Disconnected.");
+            isConnected= false;
         }
 
         protected override void OnConnectionLost()
         {
             Debug.Log("CONNECTION LOST!");
+            isConnected= false;
         }
 
 
@@ -88,6 +90,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                 string msg = System.Text.Encoding.UTF8.GetString(message);
                 //Debug.Log("Received: " + msg);
                 StoreMessage(msg);
+                /* If multiple topics shall be subrscibed to 
                 if (topic == topic)
                 {
                     if (autoTest)
@@ -95,6 +98,13 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                         autoTest = false;
                         Disconnect();
                     }
+                }
+                */
+
+                if (autoTest)
+                {
+                    autoTest = false;
+                    Disconnect();
                 }
             }
             catch(Exception e)
@@ -108,7 +118,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
             eventMessages.Add(eventMsg);
         }
 
-        public virtual void ProcessMessage(string msg)
+        public override void ProcessMessage(string msg)
         {
 
         }
@@ -135,6 +145,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         private void OnDestroy()
         {
             Disconnect();
+            isConnected= false;
         }
 
         private void OnValidate()

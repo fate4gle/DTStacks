@@ -7,10 +7,10 @@ using DTStacks.UnityComponents.Communication.Templates;
 namespace DTStacks.UnityComponents.ROS.Helpers
 {
     [RequireComponent(typeof(UnityEngine.HingeJoint))]
-    public class JointStateActuator : Actutor
+    public class JointStateActuator : Actuator
     {
         [Tooltip("The name of the joint in the relevant data message.")]
-        public string name;
+        public new string name;
         [Tooltip("The current angular state of the joint in radian.")]
         public float angleInRad;
         [Tooltip("The current angular state of the joint in degree.")]
@@ -55,6 +55,16 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             velocity = msg.velocity[index];
             effort = msg.effort[index];            
             targetState = (angle + angleOffset);
+        }
+        /// <summary>
+        /// Activates the actuator based on the received data.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="msg"></param>
+        /// <param name="isConvertingNecessary"></param>
+        public void ActuateMessage(int index, JointStateMsg msg, bool isConvertingNecessary)
+        {
+            UpdateJoint(index, msg, isConvertingNecessary);
         }
         /// <summary>
         /// Get the current JointState based on the joint.angle and the angular Offset

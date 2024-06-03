@@ -39,8 +39,16 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             }
             return jointStateMsg;
         }
-
-
+        /// <summary>
+        /// Activates the Processor based on the received data
+        /// </summary>
+        /// <param name="jsa">Array of the relevant JointStateActuators in the system.</param>
+        /// <param name="jsm">The <c>JointStateMessage</c> with updated paramters</param>
+        /// <param name="ros">Bool indicating if it is a ros-message and additional steps have to be taken.</param>
+        public void ProcessMessage(JointStateActuator[] jsa, JointStateMsg jsm, bool ros)
+        {
+            UpdateJointStates(jsa, jsm, ros);
+        }
 
 
         /// <summary>
@@ -54,7 +62,7 @@ namespace DTStacks.UnityComponents.ROS.Helpers
             for ( int i = 0; i < jsm.name.Length; i++)
             {
                 var foundJoinstStateActuator = jsa.SingleOrDefault(item => item.name == jsm.name[i]);
-                foundJoinstStateActuator.UpdateJoint(i, jsm, ros);
+                foundJoinstStateActuator.ActuateMessage(i, jsm, ros);
             }
         }
     }

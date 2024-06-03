@@ -10,7 +10,7 @@ namespace DTStacks.UnityComponents.ROS.Publisher
     {
 
         [Tooltip("The odometry handler which shall be used for this publisher.")]
-        public OdomProcessor odomHandler;
+        public OdomProcessor odomProcessor;
         [Tooltip("The reference system of the odometry message. (Default = Self = local space)")]
         public Space referenceSystem;
         [Tooltip("The current odometry message.")]
@@ -33,12 +33,12 @@ namespace DTStacks.UnityComponents.ROS.Publisher
         /// </summary>
         public void GetOdom()
         {
-            odom = odomHandler.GetOdom(referenceSystem);
+            odom = odomProcessor.GetOdom(referenceSystem);
         }
         public override void ExtendedStart()
         {
-            odomHandler.isPublishing = true;
-            odomHandler.isROSMsg = isROSMsg;
+            odomProcessor.isPublishing = true;
+            odomProcessor.isROSMsg = isROSMsg;
 
             odom = new Odometry();
         }

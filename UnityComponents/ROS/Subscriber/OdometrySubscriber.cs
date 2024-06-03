@@ -12,7 +12,7 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         [Tooltip("Specify if the incoming odometry's origin is a ROS environment. The odommetry will autommatically be transfered to the unity coordinate system.")]
         public bool isROSMsg;
         [Tooltip("The handler attached to the gamobject to which the odometry shall be applied to.")]
-        public OdomProcessor odomHandler;
+        public OdomProcessor odomProcessor;
         [Tooltip("The reference system of the odometry message. (Default = Self = local space)")]
         public Space referenceSystem;
         [Tooltip("The latest received odometry message.")]
@@ -21,10 +21,10 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         public override void ExtendedStart()
         {
             base.ExtendedStart();
-            odomHandler.isROSMsg = isROSMsg;
-            odomHandler.isPublishing = false;
+            odomProcessor.isROSMsg = isROSMsg;
+            odomProcessor.isPublishing = false;
             odom = new Odometry();
-            odomHandler.space = referenceSystem;
+            odomProcessor.space = referenceSystem;
         }
 
         public override void ProcessMessage(string msg)
@@ -33,8 +33,9 @@ namespace DTStacks.UnityComponents.ROS.Subscriber
         }
         public void FeedData(string s)
         {
+            odomProcessor.ProcessMessage(odom);
             odom.FeedDataFromJSON(s);
-            odomHandler.SetTargetPose(odom);
+            odomProcessor.ProcessMessage(odom);
         }
     }
 }

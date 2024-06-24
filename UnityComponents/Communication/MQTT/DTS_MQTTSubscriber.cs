@@ -7,6 +7,8 @@ using UnityEngine;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 using DTStacks.Communication.MQTT;
+using System.Collections;
+using System.Diagnostics;
 
 namespace DTStacks.UnityComponents.Communication.MQTT
 {
@@ -15,8 +17,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         private List<string> eventMessages = new List<string>();
         public bool autoTest = false;
         private bool isConnected = false;
-
-
+        private bool isPostAwake = false;
 
         public void SetBrokerAddress(string brokerAddress)
         {
@@ -42,7 +43,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void OnConnected()
         {
             base.OnConnected();
-            isConnected= true;
+            isConnected = true;
             Debug.Log("MQTT Connected");
 
         }
@@ -65,13 +66,13 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void OnDisconnected()
         {
             Debug.Log("Disconnected.");
-            isConnected= false;
+            isConnected = false;
         }
 
         protected override void OnConnectionLost()
         {
             Debug.Log("CONNECTION LOST!");
-            isConnected= false;
+            isConnected = false;
         }
 
 
@@ -80,6 +81,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         public override void Start()
         {
             base.Start();
+            isPostAwake = true;
         }
 
         protected override void DecodeMessage(string topic, byte[] message)
@@ -107,7 +109,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
                     Disconnect();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.Log(e);
             }
@@ -126,7 +128,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void Update()
         {
             base.Update(); // call ProcessMqttEvents()
-            
+
             if (eventMessages.Count > 0)
             {
                 foreach (string msg in eventMessages)
@@ -145,7 +147,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         private void OnDestroy()
         {
             Disconnect();
-            isConnected= false;
+            isConnected = false;
         }
 
         private void OnValidate()
@@ -154,6 +156,21 @@ namespace DTStacks.UnityComponents.Communication.MQTT
             {
                 autoConnect = true;
             }
+        }
+        private void OnApplicationPause(bool pause)
+        {
+            Debug.Log("Application is" + pause);
+            if (pause && isPostAwake) { Disconnect(); }
+            if (!pause && isPostAwake) { StartCoroutine(Reconnect()); Debug.Log("Connecting again"); }
+
+        }
+        IEnumerator Reconnect()
+        {
+            yield return new WaitForSeconds(1);
+            if (isConnected) { Disconnect(); yield return new WaitForSeconds(1); }
+
+            Debug.Log("Connecting again");
+            Connect();
         }
     }
 }

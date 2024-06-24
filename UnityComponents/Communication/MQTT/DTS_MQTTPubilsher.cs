@@ -6,6 +6,10 @@ using UnityEngine;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
 using DTStacks.Communication.MQTT;
+using System.Collections;
+using System.Linq.Expressions;
+using System.Diagnostics;
+
 namespace DTStacks.UnityComponents.Communication.MQTT
 {
     public partial class DTS_MQTTPubilsher : MQTTPublisher
@@ -19,6 +23,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         public int updateFrames = 20;
         private int frameCounter = 0;
         private bool isConnected;
+        private bool isPostAwake = false;
 
 
 
@@ -103,6 +108,7 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         protected override void Start()
         {
             base.Start();
+            isPostAwake = true;
             ExtendedStart();
         }
 
@@ -191,6 +197,22 @@ namespace DTStacks.UnityComponents.Communication.MQTT
         public override void OnApplicationQuit()
         {
             base.OnApplicationQuit();
+        }
+        private void OnApplicationPause(bool pause)
+        {
+            Debug.Log("Application is" + pause);
+            if (pause && isPostAwake) { Disconnect(); }
+            if (!pause && isPostAwake) { StartCoroutine(Reconnect()); Debug.Log("Connecting again"); }
+
+        }
+
+        IEnumerator Reconnect()
+        {
+            yield return new WaitForSeconds(1);
+            if (isConnected) { Disconnect(); yield return new WaitForSeconds(1); }
+
+            Debug.Log("Connecting again");
+            Connect();
         }
     }
 }

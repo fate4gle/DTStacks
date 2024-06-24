@@ -7,7 +7,7 @@ using DTStacks.UnityComponents.ROS.Helpers;
 using DTStacks.DataType.ROS.Messages.sensor_msgs;
 using DTStacks.UnityComponents.Communication.Templates;
 using System;
-using Newtonsoft.Json.Linq;
+//using Newtonsoft.Json.Linq;  //Uncomment for older Unity Versions if needed
 using System.Linq;
 
 namespace DTStacks.UnityComponents.ROS.Helpers
